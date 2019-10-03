@@ -1,11 +1,11 @@
 package main
 
 import ("fmt";
-		"string_padding";
+		"merkle_tree";
 		)
 
 func main(){
-	var s string = "ABCABC12"
-	res := string_padding.LeftPadHexadecimalString(s,8)
-	fmt.Println(res)
+	var transactions []string = make([]string, 0)
+	transactions = append(transactions,"ABDC","ABCD")
+	fmt.Println(merkle_tree.CreateMerkleTree(transactions))
 }
