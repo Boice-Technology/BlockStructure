@@ -1,0 +1,1 @@
+protoc -I . boice.proto --go_out=plugins=grpc:.

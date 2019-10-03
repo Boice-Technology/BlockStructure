@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package boice;
+
+message Transaction {
+  int32 version = 1;
+  int32 locktime = 2;
+  repeated TxInput vin = 3;
+  repeated TxOutput vout = 4;
+}
+message TxOutput {
+  float value = 1;
+  string scriptPubKey = 2;
+}
+message TxInput {
+  string txid = 1;
+  int32 vout = 2;
+  string scriptSig = 3;
+  int64 sequence = 4;
+}
+
+message Block {
+  int64 timestamp = 1;
+  bytes hash = 2;
+  bytes prevHash = 3;
+  repeated bytes data = 4;
+}
+
+message BlockChain {
+  repeated Block blocks = 1;
+}
