@@ -1,8 +1,6 @@
 package blockchain
 
 import(
-	"bytes"
-	"crypto/sha256"
 	"time"
 	"strconv"
 )
@@ -41,15 +39,15 @@ type BlockChain struct{
 	Blocks []*Block 
 }
 // deriving the hash of block using it's data and prev hash
-func (b *Block)DeriveHash() {
-	timestamp := b.BlockHeader.Timestamp
-	DataAndHash := [][]byte {[]byte(b.Data),[]byte(timestamp),[]byte(b.BlockHeader.PrevHash)}
-	info := bytes.Join(DataAndHash,[]byte{})
-	//will use a better algorithm as we move ahead in future.
-	hash := sha256.Sum256(info)
-	//sha can not be applied to strings but byte arrays..check the reason
-	b.Hash = string(hash[:])
-}
+// func (b *Block)DeriveHash() {
+// 	timestamp := b.BlockHeader.Timestamp
+// 	DataAndPrevHash := [][]byte {[]byte(b.Data),[]byte(timestamp),[]byte(b.BlockHeader.PrevHash)}
+// 	info := bytes.Join(DataAndHash,[]byte{})
+// 	//will use a better algorithm as we move ahead in future.
+// 	hash := sha256.Sum256(info)
+// 	//sha can not be applied to strings but byte arrays..check the reason
+// 	b.Hash = string(hash[:])
+// }
 
 func CreateBlock(data string, prevHash string) *Block {
 	// block := &Block{strconv.FormatInt(time.Now().Unix(),10),"", prevHash, data}
@@ -60,7 +58,7 @@ func CreateBlock(data string, prevHash string) *Block {
 				PrevHash: prevHash,
 				MerkleRoot: "merkle root",
 				Timestamp: strconv.FormatInt(time.Now().Unix(),10),
-				Nonce: 1,
+				Nonce: 0,
 				DifficultyTarget: 1,
 			},
 		Data: data, 
@@ -69,7 +67,11 @@ func CreateBlock(data string, prevHash string) *Block {
 		TransactionCounter: 1,
 		Transactions: nil,
 	}
-	block.DeriveHash();
+	pow := NewProof(block)
+	nonce, hash := pow.Run()
+
+	block.BlockHeader.Nonce = nonce
+	block.Hash = hash
 	return block
 }
 
