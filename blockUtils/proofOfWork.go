@@ -6,8 +6,6 @@ import(
 	"bytes"
 	"crypto/sha256"
 	"fmt"
-	"log"
-	"encoding/binary"
 )
 
 const Difficulty = 12
@@ -32,8 +30,8 @@ func (pow *ProofOfWork) InitData(nonce int) []byte {
 		[]byte(pow.Block.Data),
 		[]byte(timestamp),
 		[]byte(pow.Block.BlockHeader.PrevHash),
-		ToHex(int64(nonce)),
-		ToHex(int64(Difficulty)),
+		[]byte(fmt.Sprintf("%x", int64(nonce))),
+		[]byte(fmt.Sprintf("%x", int64(nonce))),
 	}
 	info := bytes.Join(DataAndPrevHash,[]byte{})
 
@@ -75,14 +73,4 @@ func (pow *ProofOfWork) Validate() bool {
 
 	return intHash.Cmp(pow.Target) == -1
 
-}
-
-func ToHex(num int64) []byte {
-	buff := new(bytes.Buffer)
-	err := binary.Write(buff, binary.BigEndian, num)
-	if err!= nil {
-		log.Panic(err)
-	}
-
-	return buff.Bytes()
 }
