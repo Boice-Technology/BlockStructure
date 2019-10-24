@@ -6,7 +6,6 @@ import(
 	"bytes"
 	"crypto/sha256"
 	"fmt"
-	"strconv"
 )
 
 const Difficulty = 12
@@ -28,10 +27,11 @@ func NewProof(b *Block) *ProofOfWork {
 func (pow *ProofOfWork) InitData(nonce int) []byte {
 	timestamp := pow.Block.BlockHeader.Timestamp
 	DataAndPrevHash := [][]byte {
-		[]byte(pow.Block.Data+strconv.Itoa(nonce)),
+		[]byte(pow.Block.Data),
 		[]byte(timestamp),
 		[]byte(pow.Block.BlockHeader.PrevHash),
 		[]byte(fmt.Sprintf("%x", int64(Difficulty))),
+		[]byte(fmt.Sprintf("%x", int64(nonce))),
 	}
 	info := bytes.Join(DataAndPrevHash,[]byte{})
 
