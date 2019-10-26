@@ -26,7 +26,7 @@ type BlockHeader struct{
 	MerkleRoot string
 	Timestamp string
 	Nonce int
-	DifficultyTarget int
+	TargetDifficulty string //hexadecimal
 }
 
 type Transaction struct{
@@ -59,7 +59,7 @@ func CreateBlock(data string, prevHash string) *Block {
 				MerkleRoot: "merkle root",
 				Timestamp: strconv.FormatInt(time.Now().Unix(),10),
 				Nonce: 0,
-				DifficultyTarget: 1,
+				TargetDifficulty: "0x1903a30c",
 			},
 		Data: data, 
 		Height: 0,
