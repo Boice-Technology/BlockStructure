@@ -1,11 +1,10 @@
 package block_structure
 
 type Block struct{
-	BlockSize int
+	BlockSize int64
 	Header BlockHeader
 	Hash string
 	Data string
-	Height int
-	TransactionCounter int
+	TransactionCounter int64
 	Transactions []*Transaction
 }

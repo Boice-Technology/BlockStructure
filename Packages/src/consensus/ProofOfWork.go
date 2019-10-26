@@ -7,5 +7,3 @@ type ProofOfWork struct{
 	Block *block_structure.Block
 	Target string
 }
-
-// Dependent

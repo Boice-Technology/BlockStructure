@@ -24,5 +24,3 @@ func EvaluateFunction(b *block_structure.Block) string {
 	target = string_padding.LeftPadHexadecimalString(target,32)
 	return target
 }
-
-//dependent

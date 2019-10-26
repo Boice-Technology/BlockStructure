@@ -5,8 +5,6 @@ type BlockHeader struct{
 	PrevHash string
 	MerkleRoot string
 	Timestamp string
-	Nonce int
+	Nonce int64
 	TargetDifficulty string
 }
-
-//independent

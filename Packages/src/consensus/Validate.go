@@ -11,5 +11,3 @@ func (pow *ProofOfWork) Validate() bool {
 	hexHash := fmt.Sprintf("%x", hash)
 	return strings.Compare(hexHash, pow.Target) == -1
 }
-
-// Independent

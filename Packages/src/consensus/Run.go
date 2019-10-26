@@ -6,9 +6,9 @@ import ("math";
 		"strings"
 		)
 
-func (pow *ProofOfWork) Run() (int, string){
+func (pow *ProofOfWork) Run() (int64, string){
 	var hash [32]byte
-	nonce := 0
+	nonce := int64(0)
 	hexHash := ""
 	for nonce < math.MaxInt64{
 		data := pow.InitData(nonce)
@@ -20,8 +20,5 @@ func (pow *ProofOfWork) Run() (int, string){
 			nonce++
 		}
 	}
-	fmt.Println()
 	return nonce, hexHash
 }
-
-// Independent
