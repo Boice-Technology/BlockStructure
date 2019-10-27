@@ -7,8 +7,10 @@ import ("math/big";
 func RetargetDifficulty(currentTargetDifficulty string, timeInterval int64) (string) {
 	exponentHex := currentTargetDifficulty[2:4] 
 	coefficientHex := currentTargetDifficulty[4:] 
+
 	eight,_ := new(big.Int).SetString("8",10)
 	three,_ := new(big.Int).SetString("3",10)
+
 	exp_big,_ := new(big.Int).SetString(exponentHex,16)
 	subtract := new(big.Int).Sub(exp_big,three)
 	power := new(big.Int).Mul(subtract,eight) 
@@ -27,9 +29,12 @@ func RetargetDifficulty(currentTargetDifficulty string, timeInterval int64) (str
 
 	mulRes,_ := new(big.Int).SetString("0",10)
 	mulRes.Mul(timeIntervalInt, targetInt)
+
 	newTargetInt,_ := new(big.Int).SetString("0",10)
 	newTargetInt.Div(mulRes, idealTimeIntervalInt)
 	newTarget := fmt.Sprint(newTargetInt)
-	
-	return newTarget
+
+	newTargetBitForm := EvaluateTargetBit(newTarget)
+
+	return newTargetBitForm
 }
